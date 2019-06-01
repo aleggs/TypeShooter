@@ -9,40 +9,51 @@ public class GameEngine implements Runnable{
     private Graphics g;
     private DisplayEngine display;
 
-    public void run() {
-        display = new DisplayEngine();
-        display.run();
-        launch();
+    private int width;
+    private int height;
+
+    public GameEngine(){
+        width = DisplayEngine.getWIDTH();
+        height = DisplayEngine.getHEIGHT();
+
     }
 
-    public void launch(){
+    public void run() {
+
+        init();
+
         while(sentinel){
             update();
             render();
-//            System.out.println("Kinney beans");
         }
     }
 
-    public void update(){
+    public void init(){
+        display = new DisplayEngine();
+//        display.run();
+    }
 
+    public void update(){
+        System.out.println("One tick has passed.");
     }
     public void render(){
+        System.out.println("Starting to render.");
         bs = display.getCanvas().getBufferStrategy();
-        if (bs == null)//{
+        if (bs == null){
             display.getCanvas().createBufferStrategy(2);
-            //return;}
-        bs.getDrawGraphics();
+            return;
+        }
+        g = bs.getDrawGraphics();
 
         //start drawing
-        g.fillRect(0,0,100,100);
+        ImageIcon im = new ImageIcon("Background1.jpg");
+        g.drawImage(im.getImage(), 0,0, null);
+        ImageIcon enemy1 = new ImageIcon("Red Starship 3.png");
+        g.drawImage(enemy1.getImage(), 00,00,null);
 
-//        ImageIcon im = new ImageIcon("Background1.jpg");
-//        g.drawImage(im.getImage(), 0,0, null);
-
-        //stop drawing
-
+        //stop drawing?
         bs.show();
-        bs.dispose();
+        g.dispose();
 
     }
 

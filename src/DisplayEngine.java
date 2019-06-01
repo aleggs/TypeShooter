@@ -1,23 +1,27 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class DisplayEngine implements Runnable{
-    private int difficulty = 1;
-    private int score = 0;
-    private int tick = 3000;
+public class DisplayEngine{
+    private static int difficulty = 1;
+    private static int score = 0;
+    private static int tick = 3000;
 
-    private Dimension d;
-    private final int WIDTH = 500;
-    private int HEIGHT = 500;
+    private static Dimension d;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 600;
 
-    private JFrame frame;
-    private Canvas canvas;
+    private static JFrame frame;
+    private static Canvas canvas;
 
-    public void run(){
-        generate();
+
+    public DisplayEngine(){
+        generateDisplay();
+    }
+    public static void run(){
+        generateDisplay();
     }
 
-    public void generate(){
+    public static void generateDisplay(){
         frame = new JFrame("Type to Shoot");
         d = new Dimension(WIDTH,HEIGHT);
         frame.setPreferredSize(d);
@@ -35,22 +39,30 @@ public class DisplayEngine implements Runnable{
         //sets background here
 
         frame.add(canvas);
-        frame.repaint();
+        frame.pack();//why do I have to pack here?
     }
 
-    public int getDifficulty() {
+    public static int getDifficulty() {
         return difficulty;
     }
 
-    public int getScore() {
+    public static int getScore() {
         return score;
     }
 
-    public int getTick() {
+    public static int getTick() {
         return tick;
     }
 
-    public Canvas getCanvas() {
+    public static Canvas getCanvas() {
         return canvas;
     }
+
+    public static int getWIDTH(){
+        return WIDTH;
+    };
+    public static int getHEIGHT(){
+        return HEIGHT;
+    }
+
 }
