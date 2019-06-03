@@ -21,7 +21,7 @@ public class MenuState extends State{
         g.setColor(Color.white);
         g.drawString("Z-Type",170,250);
         g.setFont(new Font("PHOSPHATE", Font.BOLD, 27));
-        g.drawString("low budget knockoff", 320,290);
+        g.drawString("low budget knockoff", 343,290);
 //        g.setFont(new Font("COURIER", Font.BOLD, 14));
 //
 //        g.drawString("MISSING ESSENTIAL FEATURES", 420, 310);

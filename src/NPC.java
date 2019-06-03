@@ -22,7 +22,7 @@ public class NPC extends Thing{
             return;
         }
 //        System.out.println(game.getKeyboardInput().getWordTyped());
-        if (game.getKeyboardInput().getWordTyped().toLowerCase().contains(name.substring(0,1))){
+        if (game.getKeyboardInput().getWordTyped().toLowerCase().contains(name.substring(0,1).toLowerCase())){
             name = name.substring(1);
             game.getKeyboardInput().resetWordTyped();
         }

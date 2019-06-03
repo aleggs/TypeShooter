@@ -21,10 +21,11 @@ public class GameState extends State{
 
         g.clearRect(0,0,800,600);
         g.drawImage(Assets.getBackground(), 0,0,null);
-        g.setFont(new Font("MONOSPACED", Font.BOLD, 18));
-        g.setColor(Color.white);
-        g.drawString("Score: " + game.getEnemiesKilled(), 0,20);
-        g.drawString("Difficulty: " + game.getDifficultyLevel(), 350,20);
+        g.setFont(new Font("COURIER", Font.BOLD, 20));
+        g.setColor(new Color(0, 154, 255));
+        g.drawString("Score: " + game.getEnemiesKilled(), 20,30);
+        g.setColor(new Color(255, 25, 0));
+        g.drawString("Difficulty: " + game.getDifficultyLevel(), 150,30);
         player.render(g);
         NPCManager.render(g);
 

@@ -97,7 +97,7 @@ public class GameEngine implements Runnable{
         if (toNextLevel >= 5 * Math.sqrt(difficultyLevel)){
             difficultyLevel++;
             NPCManager.setModY(NPCManager.getModY() + (float) 0.1);
-            difficultyTimer -= 0.2;
+            difficultyTimer -= 0.3;
             toNextLevel = 0;
 
         }
