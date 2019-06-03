@@ -30,27 +30,27 @@ public class GameState extends State{
 
     }
 
-    public static void music()
-    {
-        AudioPlayer MGP = AudioPlayer.player;
-        AudioStream BGM;
-        AudioData MD;
-
-        ContinuousAudioDataStream loop = null;
-
-        try
-        {
-            BGM = new AudioStream(new FileInputStream("/res/music.wav"));
-            MD = BGM.getData();
-            loop = new ContinuousAudioDataStream(MD);
-        }
-        catch(IOException e)
-        {
-            System.out.println("cant find the file");
-        }
-
-        MGP.start(loop);
-    }
+//    public static void music()
+//    {
+//        AudioPlayer MGP = AudioPlayer.player;
+//        AudioStream BGM;
+//        AudioData MD;
+//
+//        ContinuousAudioDataStream loop = null;
+//
+//        try
+//        {
+//            BGM = new AudioStream(new FileInputStream("/res/music.wav"));
+//            MD = BGM.getData();
+//            loop = new ContinuousAudioDataStream(MD);
+//        }
+//        catch(IOException e)
+//        {
+//            System.out.println("cant find the file");
+//        }
+//
+//        MGP.start(loop);
+//    }
 
     public GameEngine getGameEngine(){
         return game;

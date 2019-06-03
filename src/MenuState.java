@@ -19,9 +19,12 @@ public class MenuState extends State{
         g.drawImage(Assets.getMenu(), 0, 0, null);
         g.setFont(new Font("PHOSPHATE", Font.BOLD, 160));
         g.setColor(Color.white);
-        g.drawString("Z-Type",150,250);
-        g.setFont(new Font("PHOSPHATE", Font.BOLD, 20));
-        g.drawString("low budget version", 420,290);
+        g.drawString("Z-Type",170,250);
+        g.setFont(new Font("PHOSPHATE", Font.BOLD, 27));
+        g.drawString("low budget knockoff", 320,290);
+//        g.setFont(new Font("COURIER", Font.BOLD, 14));
+//
+//        g.drawString("MISSING ESSENTIAL FEATURES", 420, 310);
 
         g.setColor(new Color(0, 20, 73, 152));
         g.fillRoundRect(250,335,300,90, 40,40);

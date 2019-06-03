@@ -21,7 +21,7 @@ public class NPC extends Thing{
             NPCManager.getNPCList().remove(this); //causes CME
             return;
         }
-        System.out.println(game.getKeyboardInput().getWordTyped());
+//        System.out.println(game.getKeyboardInput().getWordTyped());
         if (game.getKeyboardInput().getWordTyped().toLowerCase().contains(name.substring(0,1))){
             name = name.substring(1);
             game.getKeyboardInput().resetWordTyped();

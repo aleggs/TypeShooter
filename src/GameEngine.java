@@ -136,6 +136,32 @@ public class GameEngine implements Runnable{
     }
     public void stop(){
         sentinel = false;
+        bs = display.getCanvas().getBufferStrategy();
+        if (bs == null){
+            display.getCanvas().createBufferStrategy(2);
+            return;
+        }
+        g = bs.getDrawGraphics();
+        g.clearRect(0,0,800,600);
+        g.drawImage(Assets.getGameOver(), 0,0,null);
+        g.setFont(new Font("PHOSPHATE", Font.BOLD,180));
+        g.setColor(Color.RED);
+        g.drawString("Game", 165,190);
+        g.drawString("Over", 175,350);
+
+        /*
+        g.setColor(new Color(0, 20, 73, 152));
+        g.fillRoundRect(250,335,300,90, 40,40);
+        g.fillRoundRect(250,435,300,90,40,40);
+        g.setColor(Color.white);
+        g.setFont(new Font("PHOSPHATE", Font.PLAIN, 90));
+        g.drawString("Play", 300,410);
+        g.drawString("Quit", 300, 510);
+
+         */
+
+        bs.show();
+
     }
     public GameEngine getGameEngine(){
         return this;
@@ -175,8 +201,11 @@ public class GameEngine implements Runnable{
                 }
                 if (mY >= 435 && mY <= 525) {
                     //quit
+//                    stop();
                     System.exit(1);
                 }
+//                else
+//                    playAgain();
             }
         }
 
@@ -196,4 +225,8 @@ public class GameEngine implements Runnable{
         }
 
     }
+
+//    public void playAgain(){
+//        run();
+//    }
 }
