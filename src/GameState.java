@@ -1,4 +1,7 @@
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.io.*;
 
 public class GameState extends State{
 
@@ -25,6 +28,28 @@ public class GameState extends State{
         player.render(g);
         NPCManager.render(g);
 
+    }
+
+    public static void music()
+    {
+        AudioPlayer MGP = AudioPlayer.player;
+        AudioStream BGM;
+        AudioData MD;
+
+        ContinuousAudioDataStream loop = null;
+
+        try
+        {
+            BGM = new AudioStream(new FileInputStream("/res/music.wav"));
+            MD = BGM.getData();
+            loop = new ContinuousAudioDataStream(MD);
+        }
+        catch(IOException e)
+        {
+            System.out.println("cant find the file");
+        }
+
+        MGP.start(loop);
     }
 
     public GameEngine getGameEngine(){

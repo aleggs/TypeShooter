@@ -18,7 +18,7 @@ public class NPC extends Thing{
     public void tick() {
         if (name.length()==0){
             game.addKill();
-            NPCManager.getNPCList().remove(this);
+            NPCManager.getNPCList().remove(this); //causes CME
             return;
         }
         System.out.println(game.getKeyboardInput().getWordTyped());

@@ -9,6 +9,7 @@ public class NPCManager {
     private static int[] locations;
     private static List<String> wordList = new ArrayList<String>();
     private static List<NPC> NPCList = new ArrayList<NPC>();
+    private static List<NPC> secondList = new ArrayList<NPC>();
 
     private static float modY = (float) 1/3;
     public NPCManager(){
@@ -52,7 +53,10 @@ public class NPCManager {
     public static void smallTick(Graphics g){
 
         //this shit is causing concurrent modification errors
-        for(NPC npc: NPCList){
+        secondList.clear();
+        secondList.addAll(NPCList);
+
+        for(NPC npc: secondList){
             npc.addY(modY);
             npc.tick();
         }

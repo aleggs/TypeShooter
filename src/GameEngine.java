@@ -17,7 +17,7 @@ public class GameEngine implements Runnable{
     final int FPS = 60;
     double timePerFrame = 1000000000 / FPS;
     double delta = 0;
-    private int difficultyTimer = 2;
+    private double difficultyTimer = 2;
 
     private State gameState;
     private State menuState;
@@ -46,7 +46,7 @@ public class GameEngine implements Runnable{
         long timer = 0;
         long enemyTimer = 0;
         int ticks = 0;
-        long bigTick = 0;
+        double bigTick = 0;
 
         while(sentinel){
 
@@ -64,12 +64,13 @@ public class GameEngine implements Runnable{
             if (enemyTimer >= 1000000000/60){
                 NPCManager.smallTick(g);
                 enemyTimer = 0;
+                bigTick+= 1.0/60;
             }
             if(timer >= 1000000000){
 //                System.out.println("Ticks and frames: " + ticks);
                 ticks = 0;
                 timer = 0;
-                bigTick++;
+//                bigTick++;
             }
             if (bigTick >= difficultyTimer){
 //                System.out.println("New enemy spawning.");
@@ -96,6 +97,8 @@ public class GameEngine implements Runnable{
         if (toNextLevel >= 5 * Math.sqrt(difficultyLevel)){
             difficultyLevel++;
             NPCManager.setModY(NPCManager.getModY() + (float) 0.1);
+            difficultyTimer -= 0.2;
+            toNextLevel = 0;
 
         }
         if (State.getCurrentState() != null) {
@@ -129,6 +132,7 @@ public class GameEngine implements Runnable{
 
     public void addKill(){
         enemiesKilled++;
+        toNextLevel++;
     }
     public void stop(){
         sentinel = false;
