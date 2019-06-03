@@ -1,6 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class GameEngine implements Runnable{
 
@@ -11,6 +14,13 @@ public class GameEngine implements Runnable{
 
     private int width;
     private int height;
+    private int y;
+    final int FPS = 60;
+    double timePerFrame = 1000000000 / FPS;
+    double delta = 0;
+
+    private State gameState;
+    private State menuState;
 
     public GameEngine(){
         width = DisplayEngine.getWIDTH();
@@ -22,22 +32,50 @@ public class GameEngine implements Runnable{
 
         init();
 
+
+        long now;
+        long lastTime = System.nanoTime();
+        long timer = 0;
+        int ticks = 0;
+
         while(sentinel){
-            update();
-            render();
+
+            now = System.nanoTime();
+            delta += (now - lastTime)/timePerFrame;
+            timer += now - lastTime;
+            lastTime = now;
+            if (delta>=1) {
+                tick();
+                render();
+                ticks++;
+                delta--;
+            }
+
+            if(timer >= 1000000000){
+                System.out.println("Ticks and frames: " + ticks);
+                ticks = 0;
+                timer = 0;
+            }
         }
     }
 
     public void init(){
+        Assets.init();
+
+        gameState = new GameState();
+        menuState = new MenuState();
+
+        State.setState(gameState);
         display = new DisplayEngine();
-//        display.run();
     }
 
-    public void update(){
-        System.out.println("One tick has passed.");
+    public void tick(){
+        if (State.getCurrentState() != null)
+            State.getCurrentState().tick();
     }
+
+
     public void render(){
-        System.out.println("Starting to render.");
         bs = display.getCanvas().getBufferStrategy();
         if (bs == null){
             display.getCanvas().createBufferStrategy(2);
@@ -46,15 +84,12 @@ public class GameEngine implements Runnable{
         g = bs.getDrawGraphics();
 
         //start drawing
-        ImageIcon im = new ImageIcon("Background1.jpg");
-        g.drawImage(im.getImage(), 0,0, null);
-        ImageIcon enemy1 = new ImageIcon("Red Starship 3.png");
-        g.drawImage(enemy1.getImage(), 00,00,null);
-
+        if (State.getCurrentState() != null)
+            State.getCurrentState().render(g);
         //stop drawing?
+
         bs.show();
         g.dispose();
-
     }
 
 

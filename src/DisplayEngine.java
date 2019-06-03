@@ -35,7 +35,7 @@ public class DisplayEngine{
         canvas.setMaximumSize(d);
         canvas.setMinimumSize(d);
 
-        ImageIcon im = new ImageIcon("Background1.jpg");
+        ImageIcon im = new ImageIcon("res/textures/Background1.jpg");
         //sets background here
 
         frame.add(canvas);
