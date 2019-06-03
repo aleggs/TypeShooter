@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public class Player extends Mob{
+public class Player extends Thing{
 
     private GameEngine game;
 
@@ -10,9 +10,9 @@ public class Player extends Mob{
     }
     @Override
     public void tick() {
-        if(game.getKeyboardInput().i){
-//            System.out.println("I TYPED AN \"I\"");
-        }
+//        if(game.getKeyboardInput().i){
+////            System.out.println("I TYPED AN \"I\"");
+//        }
     }
 
     @Override

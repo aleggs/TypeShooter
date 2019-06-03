@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 
 public class GameEngine implements Runnable{
@@ -14,16 +17,23 @@ public class GameEngine implements Runnable{
     final int FPS = 60;
     double timePerFrame = 1000000000 / FPS;
     double delta = 0;
+    private int difficultyTimer = 2;
 
     private State gameState;
     private State menuState;
 
+    private int enemiesKilled = 0;
+    private int toNextLevel = 0;
+    private int difficultyLevel = 1;
+
     private KeyboardInput keyboardInput;
+    private MouseInput mouseInput;
 
     public GameEngine(){
         width = DisplayEngine.getWIDTH();
         height = DisplayEngine.getHEIGHT();
         keyboardInput = new KeyboardInput();
+        mouseInput = new MouseInput(){};
     }
 
     public void run() {
@@ -34,13 +44,16 @@ public class GameEngine implements Runnable{
         long now;
         long lastTime = System.nanoTime();
         long timer = 0;
+        long enemyTimer = 0;
         int ticks = 0;
+        long bigTick = 0;
 
         while(sentinel){
 
             now = System.nanoTime();
             delta += (now - lastTime)/timePerFrame;
             timer += now - lastTime;
+            enemyTimer += now - lastTime;
             lastTime = now;
             if (delta>=1) {
                 tick();
@@ -48,11 +61,20 @@ public class GameEngine implements Runnable{
                 ticks++;
                 delta--;
             }
-
+            if (enemyTimer >= 1000000000/60){
+                NPCManager.smallTick(g);
+                enemyTimer = 0;
+            }
             if(timer >= 1000000000){
 //                System.out.println("Ticks and frames: " + ticks);
                 ticks = 0;
                 timer = 0;
+                bigTick++;
+            }
+            if (bigTick >= difficultyTimer){
+//                System.out.println("New enemy spawning.");
+                NPCManager.tick(g);
+                bigTick = 0;
             }
         }
     }
@@ -63,16 +85,24 @@ public class GameEngine implements Runnable{
         gameState = new GameState(this);
         menuState = new MenuState(this);
 
-        State.setState(gameState);
+        State.setState(menuState);
         display = new DisplayEngine();
         display.getFrame().addKeyListener(keyboardInput);
+        display.getFrame().addMouseListener(mouseInput);
+        display.getCanvas().addMouseListener(mouseInput);
     }
 
     public void tick(){
+        if (toNextLevel >= 5 * Math.sqrt(difficultyLevel)){
+            difficultyLevel++;
+            NPCManager.setModY(NPCManager.getModY() + (float) 0.1);
 
-        if (State.getCurrentState() != null)
+        }
+        if (State.getCurrentState() != null) {
             keyboardInput.tick();
             State.getCurrentState().tick();
+
+        }
     }
 
 
@@ -97,8 +127,69 @@ public class GameEngine implements Runnable{
         return keyboardInput;
     }
 
-
+    public void addKill(){
+        enemiesKilled++;
+    }
     public void stop(){
         sentinel = false;
+    }
+    public GameEngine getGameEngine(){
+        return this;
+    }
+
+    public int getDifficultyLevel() {
+        return difficultyLevel;
+    }
+    public int getEnemiesKilled(){
+        return enemiesKilled;
+    }
+
+    public class MouseInput implements MouseListener {
+
+        private int mX;
+        private int mY;
+
+        public MouseInput() {
+
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            mX = e.getX();
+            mY = e.getY();
+            if (mX >= 250 && mX <= 550) {
+                if (mY >= 335 && mY <= 425) {
+                    //play
+                    State.setState(gameState);
+                    System.out.println("state set");
+
+                }
+                if (mY >= 435 && mY <= 525) {
+                    //quit
+                    System.exit(1);
+                }
+            }
+        }
+
+        @Override
+        public void mouseReleased (MouseEvent e){
+
+        }
+
+        @Override
+        public void mouseEntered (MouseEvent e){
+
+        }
+
+        @Override
+        public void mouseExited (MouseEvent e){
+
+        }
+
     }
 }

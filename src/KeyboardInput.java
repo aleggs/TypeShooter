@@ -3,7 +3,7 @@ import java.awt.event.KeyListener;
 
 public class KeyboardInput implements KeyListener {
 
-
+    private String wordTyped = "";
     private boolean[] keys;
     public boolean a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z;
 
@@ -12,6 +12,7 @@ public class KeyboardInput implements KeyListener {
     }
 
     public void tick(){
+
         a = keys[KeyEvent.VK_A];
         b = keys[KeyEvent.VK_B];
         c = keys[KeyEvent.VK_C];
@@ -49,18 +50,26 @@ public class KeyboardInput implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
-        System.out.print(e.getKeyChar());
+//        System.out.print(e.getKeyChar());
 //        System.out.println("Pressed!");
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         keys[e.getKeyCode()] = false;
+        wordTyped += e.getKeyChar();
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
 
+//        wordTyped += e.getKeyChar();
+    }
+    public String getWordTyped(){
+        return wordTyped;
+    }
+    public void resetWordTyped(){
+        wordTyped = "";
     }
 
 }

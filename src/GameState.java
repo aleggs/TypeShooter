@@ -15,7 +15,22 @@ public class GameState extends State{
 
     @Override
     public void render(Graphics g) {
+
+        g.clearRect(0,0,800,600);
         g.drawImage(Assets.getBackground(), 0,0,null);
+        g.setFont(new Font("MONOSPACED", Font.BOLD, 18));
+        g.setColor(Color.white);
+        g.drawString("Score: " + game.getEnemiesKilled(), 0,20);
+        g.drawString("Difficulty: " + game.getDifficultyLevel(), 350,20);
         player.render(g);
+        NPCManager.render(g);
+
     }
+
+    public GameEngine getGameEngine(){
+        return game;
+    }
+//    public static GameState getGameState(){
+////        return game.getClass();
+//    }
 }

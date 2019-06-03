@@ -3,9 +3,10 @@ import java.awt.*;
 
 public class Assets {
 
-    public static ImageIcon background, player, redship1, redship2, redship3, redship4, redship5, redship6;
+    public static ImageIcon background, mainMenu, player, redship1, redship2, redship3, redship4, redship5, redship6;
     public static void init(){
         background = new ImageIcon("res/textures/Background1.jpg");
+        mainMenu = new ImageIcon("res/textures/Background2.jpg");
         player = new ImageIcon("res/textures/Blue Ship 6.png");
         redship1 = new ImageIcon("res/textures/Red Ship 1.png");
         redship2 = new ImageIcon("res/textures/Red Ship 2.png");
@@ -34,11 +35,13 @@ public class Assets {
     public static Image getRedShip6(){
         return redship6.getImage();
     }
+
+
     public static Image getPlayer(){
         return player.getImage();
     }
     public static Image getBackground(){
         return background.getImage();
     }
-
+    public static Image getMenu(){ return mainMenu.getImage(); }
 }
