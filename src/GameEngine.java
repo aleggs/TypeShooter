@@ -1,9 +1,5 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class GameEngine implements Runnable{
 
@@ -22,10 +18,12 @@ public class GameEngine implements Runnable{
     private State gameState;
     private State menuState;
 
+    private KeyboardInput keyboardInput;
+
     public GameEngine(){
         width = DisplayEngine.getWIDTH();
         height = DisplayEngine.getHEIGHT();
-
+        keyboardInput = new KeyboardInput();
     }
 
     public void run() {
@@ -52,7 +50,7 @@ public class GameEngine implements Runnable{
             }
 
             if(timer >= 1000000000){
-                System.out.println("Ticks and frames: " + ticks);
+//                System.out.println("Ticks and frames: " + ticks);
                 ticks = 0;
                 timer = 0;
             }
@@ -62,15 +60,18 @@ public class GameEngine implements Runnable{
     public void init(){
         Assets.init();
 
-        gameState = new GameState();
-        menuState = new MenuState();
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
 
         State.setState(gameState);
         display = new DisplayEngine();
+        display.getFrame().addKeyListener(keyboardInput);
     }
 
     public void tick(){
+
         if (State.getCurrentState() != null)
+            keyboardInput.tick();
             State.getCurrentState().tick();
     }
 
@@ -90,6 +91,10 @@ public class GameEngine implements Runnable{
 
         bs.show();
         g.dispose();
+    }
+
+    public KeyboardInput getKeyboardInput(){
+        return keyboardInput;
     }
 
 

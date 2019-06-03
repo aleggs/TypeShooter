@@ -34,6 +34,7 @@ public class DisplayEngine{
         canvas.setPreferredSize(d);
         canvas.setMaximumSize(d);
         canvas.setMinimumSize(d);
+        canvas.setFocusable(false); //?can only write/act on JFrame
 
         ImageIcon im = new ImageIcon("res/textures/Background1.jpg");
         //sets background here
@@ -57,7 +58,7 @@ public class DisplayEngine{
     public static Canvas getCanvas() {
         return canvas;
     }
-
+    public static JFrame getFrame(){ return frame; }
     public static int getWIDTH(){
         return WIDTH;
     };

@@ -1,7 +1,8 @@
 import java.awt.*;
 
 public class MenuState extends State{
-    public MenuState(){
+    public MenuState(GameEngine gameIn){
+        super(gameIn);
 
     }
 

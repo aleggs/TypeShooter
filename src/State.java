@@ -11,6 +11,12 @@ public abstract class State {
         currentState = state;
     }
 
+
+    protected GameEngine game;
+    public State (GameEngine gameIn){
+        game = gameIn;
+    }
+
     public int tick;
     public abstract void tick();
     public abstract void render(Graphics g);
